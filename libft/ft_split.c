@@ -6,7 +6,7 @@
 /*   By: heychong <heychong@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 00:41:02 by heychong          #+#    #+#             */
-/*   Updated: 2025/11/13 17:24:05 by heychong         ###   ########.fr       */
+/*   Updated: 2025/11/14 18:31:58 by heychong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	count_split(char const *str, char delimiter)
 {
-	int	count;
+	int		count;
 	int		judge;
 
 	count = 0;
@@ -36,7 +36,7 @@ int	count_split(char const *str, char delimiter)
 char	*word_dup(char *start, int len)
 {
 	char	*word;
-	int	i;
+	int		i;
 
 	word = (char *)malloc(len + 1);
 	if (!word)
@@ -51,20 +51,20 @@ char	*word_dup(char *start, int len)
 	return (word);
 }
 
-char	**ft_split(char *str, char delimiter)
+char	**free_and_return_null(char **arr, int i)
 {
-	char	**arr;
-	int	words;
+	while (i > 0)
+		free(arr[--i]);
+	free(arr);
+	return (NULL);
+}
+
+char	**execute(char **arr, char *str, char delimiter, int words)
+{
 	int	i;
 	int	start;
 	int	end;
 
-	if (!str)
-		return (NULL);
-	words = count_split(str, delimiter);
-	arr = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!arr)
-		return (NULL);
 	i = 0;
 	start = 0;
 	while (i < words)
@@ -72,21 +72,30 @@ char	**ft_split(char *str, char delimiter)
 		while (str[start] == delimiter)
 			start++;
 		end = start;
-		while(str[end] && str[end] != delimiter)
+		while (str[end] && str[end] != delimiter)
 			end++;
 		arr[i] = word_dup(str + start, end - start);
 		if (!arr[i])
-		{
-			while (i > 0)
-				free(arr[--i]);
-			free(arr);
-			return (NULL);
-		}
+			return (free_and_return_null(arr, i));
 		i++;
 		start = end;
 	}
 	arr[i] = NULL;
 	return (arr);
+}
+
+char	**ft_split(char *str, char delimiter)
+{
+	char	**arr;
+	int		words;
+
+	if (!str)
+		return (NULL);
+	words = count_split(str, delimiter);
+	arr = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!arr)
+		return (NULL);
+	return (execute(arr, str, delimiter, words));
 }
 
 /*#include <stdio.h>

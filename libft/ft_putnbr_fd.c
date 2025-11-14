@@ -6,18 +6,23 @@
 /*   By: heychong <heychong@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 17:28:25 by heychong          #+#    #+#             */
-/*   Updated: 2025/10/27 22:31:52 by heychong         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:47:47 by heychong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int	n, int	fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	ft_putstr_fd(ft_itoa(n), fd);
+	char	*str;
+
+	str = ft_itoa(n);
+	ft_putstr_fd(str, fd);
+	free(str);
 }
 
+/*#include <limits.h>
 int	main()
 {
-	ft_putnbr_fd(-1, 1);
-}
+	ft_putnbr_fd(INT_MIN, 1);
+}*/

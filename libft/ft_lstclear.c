@@ -6,7 +6,7 @@
 /*   By: heychong <heychong@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:41:22 by heychong          #+#    #+#             */
-/*   Updated: 2025/10/29 12:44:56 by heychong         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:50:59 by heychong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		*lst = next_lst;
 	}
 }
-
